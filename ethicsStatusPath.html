@@ -1,0 +1,78 @@
+<template>
+    <!-- Error state -->
+    <template if:true={errorMessage}>
+        <div class="slds-m-around_small slds-text-color_error">
+            {errorMessage}
+        </div>
+    </template>
+
+    <!-- Normal state -->
+    <template if:true={pathReady}>
+        <div class="path-wrapper">
+
+            <!-- SLDS Path -->
+            <div class="slds-path" role="application">
+                <div class="slds-grid slds-path__track">
+                    <div class="slds-grid slds-path__scroller-container">
+                        <div class="slds-path__scroller">
+                            <div class="slds-path__scroller_inner">
+                                <ul class="slds-path__nav"
+                                    role="listbox"
+                                    aria-orientation="horizontal">
+                                    <template for:each={stages} for:item="stage">
+                                        <li key={stage.value}
+                                            class={stage.cssClass}
+                                            role="presentation">
+                                            <a class="slds-path__link"
+                                               role="option"
+                                               aria-selected={stage.isCurrent}>
+                                                <span class="slds-path__stage">
+                                                    <template if:true={stage.isComplete}>
+                                                        <lightning-icon
+                                                            icon-name="utility:check"
+                                                            size="x-small"
+                                                            alternative-text="Complete">
+                                                        </lightning-icon>
+                                                    </template>
+                                                </span>
+                                                <span class="slds-path__title">
+                                                    {stage.label}
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Guidance for Success -->
+            <template if:true={hasGuidance}>
+                <article class="slds-card slds-m-top_small guidance-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                    Guidance for Success
+                                </h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="guidance-container" lwc:dom="manual"></div>
+                    </div>
+                </article>
+            </template>
+
+        </div>
+    </template>
+
+    <!-- Loading / Builder state -->
+    <template if:true={showLoading}>
+        <div class="slds-m-around_small slds-text-body_small">
+            Loading ethics status path…1
+        </div>
+    </template>
+</template>
