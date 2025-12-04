@@ -3,17 +3,25 @@ import { getRecord } from 'lightning/uiRecordApi';
 import { CurrentPageReference } from 'lightning/navigation';
 import STATUS_FIELD from '@salesforce/schema/Ethics_Request__c.I_RS_Status__c';
 
-import getStatusConfig
-    from '@salesforce/apex/EthicsRequestPathController.getStatusConfig';
+const STATUS_CONFIG = [
+    { status: 'Draft', guidanceKey: 'draft' },
+    { status: 'eForm in Progress', guidanceKey: 'eform' },
+    { status: 'Review by Research Office', guidanceKey: 'reviewOffice' },
+    { status: 'Researcher actions required' },
+    { status: 'Assigned for committee review' },
+    { status: 'Open for Comments' },
+    { status: 'Approved' },
+    { status: 'Expired' },
+    { status: 'Closed' }
+];
 
 export default class EthicsRequestPath extends LightningElement {
     @api recordId;
 
     statusValue;
-    statusConfig = [];   // [{ status, guidance, sortOrder }]
 
     stages = [];
-    currentGuidance;
+    currentGuidanceKey;
     pathReady = false;
     errorMessage;
 
@@ -59,30 +67,9 @@ export default class EthicsRequestPath extends LightningElement {
         }
     }
 
-    // 🔹 2) Status list + guidance from CMDT (Apex)
-    @wire(getStatusConfig)
-    wiredConfig({ data, error }) {
-        if (data) {
-            this.statusConfig = data;
-            this.errorMessage = null;
-            // eslint-disable-next-line no-console
-            console.log(
-                'EthicsRequestPath: statusConfig size =',
-                this.statusConfig.length
-            );
-            this.buildPath();
-        } else if (error) {
-            this.statusConfig = [];
-            this.pathReady = false;
-            this.errorMessage = 'Error loading status configuration';
-            // eslint-disable-next-line no-console
-            console.log('EthicsRequestPath: config error', JSON.parse(JSON.stringify(error)));
-        }
-    }
-
     buildPath() {
         // Still waiting on something → loading
-        if (!this.recordId || !this.statusValue || !this.statusConfig.length) {
+        if (!this.recordId || !this.statusValue) {
             this.pathReady = false;
             return;
         }
@@ -90,7 +77,7 @@ export default class EthicsRequestPath extends LightningElement {
         const stages = [];
         let passedCurrent = false;
 
-        this.statusConfig.forEach(cfg => {
+        STATUS_CONFIG.forEach(cfg => {
             const value = cfg.status;
             const isCurrent = value === this.statusValue;
             const isComplete = !isCurrent && !passedCurrent;
@@ -121,21 +108,17 @@ export default class EthicsRequestPath extends LightningElement {
 
         this.stages = stages;
 
-        const currentCfg = this.statusConfig.find(
-            cfg => cfg.status === this.statusValue
-        );
-        this.currentGuidance = currentCfg ? currentCfg.guidance : '';
+        const currentCfg = STATUS_CONFIG.find(cfg => cfg.status === this.statusValue);
+        this.currentGuidanceKey = currentCfg ? currentCfg.guidanceKey : null;
 
         // ✅ Everything ready
         this.pathReady = true;
         // eslint-disable-next-line no-console
         console.log('EthicsRequestPath: pathReady =', this.pathReady);
-
-        this.updateGuidanceHtml();
     }
 
     get hasGuidance() {
-        return !!this.currentGuidance;
+        return !!this.currentGuidanceKey;
     }
 
     // 🔹 show loading only if not ready and no error
@@ -143,19 +126,15 @@ export default class EthicsRequestPath extends LightningElement {
         return !this.pathReady && !this.errorMessage;
     }
 
-    renderedCallback() {
-        this.updateGuidanceHtml();
+    get showDraftGuidance() {
+        return this.currentGuidanceKey === 'draft';
     }
 
-    updateGuidanceHtml() {
-        if (!this.pathReady) return;
+    get showEformGuidance() {
+        return this.currentGuidanceKey === 'eform';
+    }
 
-        const container = this.template.querySelector('.guidance-container');
-        if (!container) return;
-
-        const html = this.currentGuidance || '';
-        if (container.innerHTML !== html) {
-            container.innerHTML = html;
-        }
+    get showResearchOfficeGuidance() {
+        return this.currentGuidanceKey === 'reviewOffice';
     }
 }

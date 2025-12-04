@@ -61,7 +61,57 @@
                         </header>
                     </div>
                     <div class="slds-card__body slds-card__body_inner">
-                        <div class="guidance-container" lwc:dom="manual"></div>
+                        <template if:true={showDraftGuidance}>
+                            <p>
+                                The eForm will remain locked until a Principal Investigator (PI) is added under Research
+                                Personnel. You must also add all other project personnel (Co-Investigators, Student Investigators,
+                                Coordinating PIs, Administrators), as these details pre-fill into the eForm.
+                            </p>
+                            <p>
+                                The creator of the application is automatically added as Administrator. Go to the Research
+                                Personnel tab, click Edit via the arrow dropdown, and update your role.
+                            </p>
+                            <p>
+                                To add personnel: click Add Research Personnel, enter their LTU email, select Role and Date Added
+                                (today) — do not add an End Date — then click Save.
+                            </p>
+                            <p>To unlock, click Access eForm (top right).</p>
+                            <p class="slds-m-bottom_small">Tips:</p>
+                            <ul class="slds-list_dotted">
+                                <li>PIs cannot be students, honorary, adjunct, affiliate, or CONAGOTH.</li>
+                            </ul>
+                        </template>
+
+                        <template if:true={showEformGuidance}>
+                            <p>
+                                The eForm is in draft mode and can be accessed and edited by clicking “Access eForm” at the top
+                                right.
+                            </p>
+                            <p>
+                                All listed research personnel and administrators can edit the eForm, but the Principal Investigator
+                                must make the final declaration and submission.
+                            </p>
+                            <p>
+                                At this stage, you can still edit the “Research Personnel” and “Ethics Application Title” fields.
+                            </p>
+                            <p class="slds-m-bottom_small">To Update Research Personnel</p>
+                            <ul class="slds-list_dotted">
+                                <li>Remove someone: Go to the Research Personnel tab, click the dropdown arrow &gt; Edit, enter an End Date, and Save.</li>
+                                <li>Change role: Same steps, but update the Role only (no End Date).</li>
+                                <li>Add personnel: Click “Add Research Personnel” (top right).</li>
+                            </ul>
+                            <p>Tip: Use LTU email for accurate results.</p>
+                            <p>Remember to click “Save Draft” before exiting the eForm. You can return and continue editing at any time.</p>
+                        </template>
+
+                        <template if:true={showResearchOfficeGuidance}>
+                            <p>
+                                Your application has been submitted for an initial compliance and governance review by the Research
+                                Office.
+                            </p>
+                            <p>You still have view-only access to your application via the “Access eForm” button at the top right.</p>
+                            <p>If you need to make further changes, please contact humanethics@latrobe.edu.au to discuss your options.</p>
+                        </template>
                     </div>
                 </article>
             </template>
@@ -72,7 +122,7 @@
     <!-- Loading / Builder state -->
     <template if:true={showLoading}>
         <div class="slds-m-around_small slds-text-body_small">
-            Loading ethics status path…1
+            Loading ethics status path…
         </div>
     </template>
 </template>
