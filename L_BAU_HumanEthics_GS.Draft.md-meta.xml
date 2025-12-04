@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Draft</label>
+    <protected>false</protected>
+    <values>
+        <field>Guidance__c</field>
+        <value xsi:type="xsd:string">The eForm will remain locked until a Principal Investigator (PI) is added under Research Personnel. You must also add all other project personnel (Co-Investigators, Student Investigators, Coordinating PIs, Administrators), as these details pre-fill into the eForm.
+
+The creator of the application is automatically added as Administrator. Go to the Research Personnel tab, click Edit via the arrow dropdown, and update your role.
+
+
+
+To add personnel: click Add Research Personnel, enter their LTU email, select Role and Date Added (today) — do not add an End Date — then click Save.
+
+
+
+To unlock, click Access eForm (top right).
+
+
+
+Tips:
+
+PIs cannot be students, honorary, adjunct, affiliate, or CONAGOTH.</value>
+    </values>
+    <values>
+        <field>Sort_Order__c</field>
+        <value xsi:type="xsd:string">1</value>
+    </values>
+    <values>
+        <field>Status_Value__c</field>
+        <value xsi:type="xsd:string">Draft</value>
+    </values>
+</CustomMetadata>

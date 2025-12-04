@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Review by Research Office</label>
+    <protected>false</protected>
+    <values>
+        <field>Guidance__c</field>
+        <value xsi:type="xsd:string">Your application has been submitted for an initial compliance and governance review by the Research Office.
+
+
+
+You still have view-only access to your application via the “Access eForm” button at the top right.
+
+
+
+If you need to make further changes, please contact humanethics@latrobe.edu.au to discuss your options.</value>
+    </values>
+    <values>
+        <field>Sort_Order__c</field>
+        <value xsi:type="xsd:string">3</value>
+    </values>
+    <values>
+        <field>Status_Value__c</field>
+        <value xsi:type="xsd:string">Review by Research Office</value>
+    </values>
+</CustomMetadata>
