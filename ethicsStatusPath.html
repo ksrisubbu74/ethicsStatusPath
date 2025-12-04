@@ -16,16 +16,10 @@
                     <div class="slds-grid slds-path__scroller-container">
                         <div class="slds-path__scroller">
                             <div class="slds-path__scroller_inner">
-                                <ul class="slds-path__nav"
-                                    role="listbox"
-                                    aria-orientation="horizontal">
+                                <ul class="slds-path__nav" role="listbox" aria-orientation="horizontal">
                                     <template for:each={stages} for:item="stage">
-                                        <li key={stage.value}
-                                            class={stage.cssClass}
-                                            role="presentation">
-                                            <a class="slds-path__link"
-                                               role="option"
-                                               aria-selected={stage.isCurrent}>
+                                        <li key={stage.value} class={stage.cssClass} role="presentation">
+                                            <a class="slds-path__link" role="option" aria-selected={stage.isCurrent}>
                                                 <span class="slds-path__stage">
                                                     <template if:true={stage.isComplete}>
                                                         <lightning-icon
