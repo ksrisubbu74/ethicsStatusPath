@@ -1,0 +1,161 @@
+import { LightningElement, api, wire } from 'lwc';
+import { getRecord } from 'lightning/uiRecordApi';
+import { CurrentPageReference } from 'lightning/navigation';
+import STATUS_FIELD from '@salesforce/schema/Ethics_Request__c.I_RS_Status__c';
+
+import getStatusConfig
+    from '@salesforce/apex/EthicsRequestPathController.getStatusConfig';
+
+export default class EthicsRequestPath extends LightningElement {
+    @api recordId;
+
+    statusValue;
+    statusConfig = [];   // [{ status, guidance, sortOrder }]
+
+    stages = [];
+    currentGuidance;
+    pathReady = false;
+    errorMessage;
+
+    // 🔹 0) Fallback for portal: read recordId from URL if not injected
+    @wire(CurrentPageReference)
+    getPageRef(pageRef) {
+        if (!pageRef || this.recordId) {
+            return;
+        }
+
+        const state = pageRef.state || {};
+        const attrs = pageRef.attributes || {};
+
+        const urlId =
+            state.recordId ||
+            state.c__recordId ||
+            attrs.recordId ||
+            null;
+
+        if (urlId) {
+            this.recordId = urlId;
+            // eslint-disable-next-line no-console
+            console.log('EthicsRequestPath: recordId from URL =', this.recordId);
+            this.buildPath(); // try building now that we have an Id
+        }
+    }
+
+    // 🔹 1) Current Status from record
+    @wire(getRecord, { recordId: '$recordId', fields: [STATUS_FIELD] })
+    wiredRecord({ data, error }) {
+        if (data) {
+            this.statusValue = data.fields.I_RS_Status__c.value;
+            this.errorMessage = null;
+            // eslint-disable-next-line no-console
+            console.log('EthicsRequestPath: statusValue =', this.statusValue);
+            this.buildPath();
+        } else if (error) {
+            this.statusValue = null;
+            this.pathReady = false;
+            this.errorMessage = 'Error loading record data';
+            // eslint-disable-next-line no-console
+            console.log('EthicsRequestPath: record error', JSON.parse(JSON.stringify(error)));
+        }
+    }
+
+    // 🔹 2) Status list + guidance from CMDT (Apex)
+    @wire(getStatusConfig)
+    wiredConfig({ data, error }) {
+        if (data) {
+            this.statusConfig = data;
+            this.errorMessage = null;
+            // eslint-disable-next-line no-console
+            console.log(
+                'EthicsRequestPath: statusConfig size =',
+                this.statusConfig.length
+            );
+            this.buildPath();
+        } else if (error) {
+            this.statusConfig = [];
+            this.pathReady = false;
+            this.errorMessage = 'Error loading status configuration';
+            // eslint-disable-next-line no-console
+            console.log('EthicsRequestPath: config error', JSON.parse(JSON.stringify(error)));
+        }
+    }
+
+    buildPath() {
+        // Still waiting on something → loading
+        if (!this.recordId || !this.statusValue || !this.statusConfig.length) {
+            this.pathReady = false;
+            return;
+        }
+
+        const stages = [];
+        let passedCurrent = false;
+
+        this.statusConfig.forEach(cfg => {
+            const value = cfg.status;
+            const isCurrent = value === this.statusValue;
+            const isComplete = !isCurrent && !passedCurrent;
+            const isFuture = !isCurrent && passedCurrent;
+
+            let cssClass = 'slds-path__item';
+            if (isCurrent) {
+                cssClass += ' slds-is-current slds-is-active';
+            } else if (isComplete) {
+                cssClass += ' slds-is-complete';
+            } else {
+                cssClass += ' slds-is-incomplete';
+            }
+
+            stages.push({
+                label: value,
+                value,
+                isCurrent,
+                isComplete,
+                isFuture,
+                cssClass
+            });
+
+            if (isCurrent) {
+                passedCurrent = true;
+            }
+        });
+
+        this.stages = stages;
+
+        const currentCfg = this.statusConfig.find(
+            cfg => cfg.status === this.statusValue
+        );
+        this.currentGuidance = currentCfg ? currentCfg.guidance : '';
+
+        // ✅ Everything ready
+        this.pathReady = true;
+        // eslint-disable-next-line no-console
+        console.log('EthicsRequestPath: pathReady =', this.pathReady);
+
+        this.updateGuidanceHtml();
+    }
+
+    get hasGuidance() {
+        return !!this.currentGuidance;
+    }
+
+    // 🔹 show loading only if not ready and no error
+    get showLoading() {
+        return !this.pathReady && !this.errorMessage;
+    }
+
+    renderedCallback() {
+        this.updateGuidanceHtml();
+    }
+
+    updateGuidanceHtml() {
+        if (!this.pathReady) return;
+
+        const container = this.template.querySelector('.guidance-container');
+        if (!container) return;
+
+        const html = this.currentGuidance || '';
+        if (container.innerHTML !== html) {
+            container.innerHTML = html;
+        }
+    }
+}
