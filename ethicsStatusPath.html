@@ -54,16 +54,16 @@
                             </div>
                         </header>
                     </div>
-                    <div class="slds-card__body slds-card__body_inner">
+                    <div class="slds-card__body slds-card__body_inner guidance-container">
                         <template if:true={showDraftGuidance}>
                             <p>
-                                The eForm will remain locked until a Principal Investigator (PI) is added under Research
-                                Personnel. You must also add all other project personnel (Co-Investigators, Student Investigators,
-                                Coordinating PIs, Administrators), as these details pre-fill into the eForm.
+                                The eForm will remain locked until a Principal Investigator (PI) is added under Research Personnel.
+                                You must also add all other project personnel (Co-Investigators, Student Investigators, Coordinating
+                                PIs, Administrators), as these details pre-fill into the eForm.
                             </p>
                             <p>
-                                The creator of the application is automatically added as Administrator. Go to the Research
-                                Personnel tab, click Edit via the arrow dropdown, and update your role.
+                                The creator of the application is automatically added as Administrator. Go to the Research Personnel
+                                tab, click Edit via the arrow dropdown, and update your role.
                             </p>
                             <p>
                                 To add personnel: click Add Research Personnel, enter their LTU email, select Role and Date Added
@@ -105,6 +105,79 @@
                             </p>
                             <p>You still have view-only access to your application via the “Access eForm” button at the top right.</p>
                             <p>If you need to make further changes, please contact humanethics@latrobe.edu.au to discuss your options.</p>
+                        </template>
+
+                        <template if:true={showResearcherActionsGuidance}>
+                            <p>
+                                This stage means your application requires updates based on the review. This may occur for one of the
+                                following reasons:
+                            </p>
+                            <ol class="slds-list_ordered slds-m-left_medium">
+                                <li>
+                                    <strong>Post compliance/governance review</strong> — you may need to:
+                                    <ul class="slds-list_dotted slds-m-top_xx-small">
+                                        <li>Update any components with the assigned project ID.</li>
+                                        <li>Review any supporting documentation provided.</li>
+                                        <li>Submit updated documents into your application.</li>
+                                        <li>Provide additional information as requested.</li>
+                                    </ul>
+                                </li>
+                                <li class="slds-m-top_small">
+                                    <strong>Post committee review</strong> — you may need to:
+                                    <ul class="slds-list_dotted slds-m-top_xx-small">
+                                        <li>Update your application in line with the specified committee recommendations.</li>
+                                        <li>Provide additional supporting documentation.</li>
+                                        <li>Complete a different application pathway if required.</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                            <p>
+                                You will be notified of the specific changes required via email. In some cases, you may need to
+                                update the Research Personnel directly in PRIME or amend the eForm by selecting the Access eForm
+                                button above. For eForm amendments, please follow the instructions provided in the email.
+                            </p>
+                        </template>
+
+                        <template if:true={showCommitteeReviewGuidance}>
+                            <p>Your application has been assigned to the relevant ethics committee for review.</p>
+                        </template>
+
+                        <template if:true={showOpenCommentsGuidance}>
+                            <p>Your application is currently under review by the committee.</p>
+                            <p>You continue to have view-only access to the eForm during this stage.</p>
+                            <p>Tip: You will receive the outcome within seven business days of the committee meeting date.</p>
+                        </template>
+
+                        <template if:true={showApprovedGuidance}>
+                            <p>Your application has been approved by the ethics committee.</p>
+                            <p>
+                                You continue to have view-only access to the eForm and all previous committee comments for your
+                                reference.
+                            </p>
+                            <p>
+                                If you need to make changes to your approved application, please select “Create Modification” at the
+                                top right. This will allow access to an editable version of your application.
+                            </p>
+                            <p>
+                                Tip: To submit post approval reports, please choose from “Create Annual Report,” “Create Final Report,”
+                                or “Create UAE/Safety Report” at the top right of the screen to access the form.
+                            </p>
+                            <p>You will receive the outcome within seven business days of the committee meeting date.</p>
+                        </template>
+
+                        <template if:true={showExpiredGuidance}>
+                            <p>
+                                Your project approval has expired. You are no longer permitted to conduct any research activities under
+                                this approved project.
+                            </p>
+                            <p>
+                                If you have not already done so, you must submit a new project within three months of the expiry date.
+                            </p>
+                            <p>Tip: You will receive the outcome within seven business days of the committee meeting date.</p>
+                        </template>
+
+                        <template if:true={showClosedGuidance}>
+                            <p>This project has been closed.</p>
                         </template>
                     </div>
                 </article>
