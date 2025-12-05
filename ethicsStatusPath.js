@@ -7,12 +7,12 @@ const STATUS_CONFIG = [
     { status: 'Draft', guidanceKey: 'draft' },
     { status: 'eForm in Progress', guidanceKey: 'eform' },
     { status: 'Review by Research Office', guidanceKey: 'reviewOffice' },
-    { status: 'Researcher actions required' },
-    { status: 'Assigned for committee review' },
-    { status: 'Open for Comments' },
-    { status: 'Approved' },
-    { status: 'Expired' },
-    { status: 'Closed' }
+    { status: 'Researcher actions required', guidanceKey: 'researcherActions' },
+    { status: 'Assigned for committee review', guidanceKey: 'committeeReview' },
+    { status: 'Open for Comments', guidanceKey: 'openComments' },
+    { status: 'Approved', guidanceKey: 'approved' },
+    { status: 'Expired', guidanceKey: 'expired' },
+    { status: 'Closed', guidanceKey: 'closed' }
 ];
 
 export default class EthicsRequestPath extends LightningElement {
@@ -136,5 +136,29 @@ export default class EthicsRequestPath extends LightningElement {
 
     get showResearchOfficeGuidance() {
         return this.currentGuidanceKey === 'reviewOffice';
+    }
+
+    get showResearcherActionsGuidance() {
+        return this.currentGuidanceKey === 'researcherActions';
+    }
+
+    get showCommitteeReviewGuidance() {
+        return this.currentGuidanceKey === 'committeeReview';
+    }
+
+    get showOpenCommentsGuidance() {
+        return this.currentGuidanceKey === 'openComments';
+    }
+
+    get showApprovedGuidance() {
+        return this.currentGuidanceKey === 'approved';
+    }
+
+    get showExpiredGuidance() {
+        return this.currentGuidanceKey === 'expired';
+    }
+
+    get showClosedGuidance() {
+        return this.currentGuidanceKey === 'closed';
     }
 }
