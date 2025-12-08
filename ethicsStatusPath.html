@@ -1,3 +1,10 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 12-08-2025
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
 <template>
     <!-- Error state -->
     <template if:true={errorMessage}>
@@ -49,7 +56,7 @@
                         <header class="slds-media slds-media_center slds-has-flexi-truncate">
                             <div class="slds-media__body">
                                 <h2 class="slds-card__header-title">
-                                    Guidance for Success
+                                   <strong>Guidance for Success</strong> 
                                 </h2>
                             </div>
                         </header>
@@ -57,7 +64,7 @@
                     <div class="slds-card__body slds-card__body_inner guidance-container">
                         <template if:true={showDraftGuidance}>
                             <p>
-                                The eForm will remain locked until a Principal Investigator (PI) is added under Research Personnel.
+                                The eForm will remain locked until a <strong>Principal Investigator (PI)</strong> is added under <strong>Research Personnel</strong>.
                                 You must also add all other project personnel (Co-Investigators, Student Investigators, Coordinating
                                 PIs, Administrators), as these details pre-fill into the eForm.
                             </p>
@@ -65,20 +72,25 @@
                                 The creator of the application is automatically added as Administrator. Go to the Research Personnel
                                 tab, click Edit via the arrow dropdown, and update your role.
                             </p>
+                            <br> 
                             <p>
-                                To add personnel: click Add Research Personnel, enter their LTU email, select Role and Date Added
+                                To add personnel: click <strong> Add Research Personnel</strong> , enter their LTU email, select Role and Date Added
                                 (today) — do not add an End Date — then click Save.
                             </p>
+                            <br> 
                             <p>To unlock, click Access eForm (top right).</p>
-                            <p class="slds-m-bottom_small">Tips:</p>
-                            <ul class="slds-list_dotted">
-                                <li>PIs cannot be students, honorary, adjunct, affiliate, or CONAGOTH.</li>
+                            <br> 
+                            <p class="slds-m-bottom_small"><strong>Tips:</strong></p>
+                            
+                            <ul class="slds-list_dotted"> 
+                                <li>PIs cannot be students, honorary, adjunct, affiliate, or CONAGOTH.</li>                               
+                                <li>Adjunct or CONAGOTH PIs from industry partners should contact <a href= "mailto:eib@latrobe.edu.au">eib@latrobe.edu.au</a></li>
                             </ul>
                         </template>
 
                         <template if:true={showEformGuidance}>
                             <p>
-                                The eForm is in draft mode and can be accessed and edited by clicking “Access eForm” at the top
+                                The <strong> eForm</strong>  is in draft mode and can be accessed and edited by clicking “Access eForm” at the top
                                 right.
                             </p>
                             <p>
@@ -86,7 +98,7 @@
                                 must make the final declaration and submission.
                             </p>
                             <p>
-                                At this stage, you can still edit the “Research Personnel” and “Ethics Application Title” fields.
+                                At this stage, you can still edit the <strong> “Research Personnel”</strong>  and “Ethics Application Title” fields.
                             </p>
                             <p class="slds-m-bottom_small">To Update Research Personnel</p>
                             <ul class="slds-list_dotted">
@@ -94,17 +106,21 @@
                                 <li>Change role: Same steps, but update the Role only (no End Date).</li>
                                 <li>Add personnel: Click “Add Research Personnel” (top right).</li>
                             </ul>
+                            <br> 
                             <p>Tip: Use LTU email for accurate results.</p>
-                            <p>Remember to click “Save Draft” before exiting the eForm. You can return and continue editing at any time.</p>
+                            <br> 
+                            <p>Remember to click <strong> “Save Draft”</strong>  before exiting the eForm. You can return and continue editing at any time.</p>
                         </template>
-
+                        
                         <template if:true={showResearchOfficeGuidance}>
                             <p>
                                 Your application has been submitted for an initial compliance and governance review by the Research
                                 Office.
                             </p>
+                            <br> 
                             <p>You still have view-only access to your application via the “Access eForm” button at the top right.</p>
-                            <p>If you need to make further changes, please contact humanethics@latrobe.edu.au to discuss your options.</p>
+                            <br> 
+                            <p>If you need to make further changes, please contact <a href= "mailto:humanethics@latrobe.edu.au">humanethics@latrobe.edu.au</a> to discuss your options.</p>
                         </template>
 
                         <template if:true={showResearcherActionsGuidance}>
@@ -116,51 +132,57 @@
                                 <li>
                                     <strong>Post compliance/governance review</strong> — you may need to:
                                     <ul class="slds-list_dotted slds-m-top_xx-small">
-                                        <li>Update any components with the assigned project ID.</li>
-                                        <li>Review any supporting documentation provided.</li>
-                                        <li>Submit updated documents into your application.</li>
-                                        <li>Provide additional information as requested.</li>
+                                        <li>Update supporting documents with the assigned project ID;</li>
+                                        <li>Revise eForm entries or documents to meet compliance requirements;</li>
+                                        <li>Complete a different application pathway if advised.</li>
                                     </ul>
                                 </li>
                                 <li class="slds-m-top_small">
                                     <strong>Post committee review</strong> — you may need to:
                                     <ul class="slds-list_dotted slds-m-top_xx-small">
-                                        <li>Update your application in line with the specified committee recommendations.</li>
-                                        <li>Provide additional supporting documentation.</li>
+                                        <li>Address committee feedback by revising the eForm and/or supporting documents, OR</li>
                                         <li>Complete a different application pathway if required.</li>
                                     </ul>
                                 </li>
                             </ol>
+                            <br> 
                             <p>
-                                You will be notified of the specific changes required via email. In some cases, you may need to
-                                update the Research Personnel directly in PRIME or amend the eForm by selecting the Access eForm
-                                button above. For eForm amendments, please follow the instructions provided in the email.
+                            You will be notified of the specific actions required. To complete these, you may need to update the Research Personnel directly in PRIME or amend the eForm by selecting the Access eForm button above. Once all required changes have been made, resubmit the eForm for further review.
                             </p>
                         </template>
 
                         <template if:true={showCommitteeReviewGuidance}>
-                            <p>Your application has been assigned to the relevant ethics committee for review.</p>
+                            <p><strong>Your application has been assigned to the relevant ethics committee for review.</strong></p>
+                            <br>
+                            <p>You continue to have view-only access to the eForm during this stage.</p>
+                            <br>
+                            <p>You will receive the outcome within seven business days of the committee meeting date.</p>
                         </template>
 
                         <template if:true={showOpenCommentsGuidance}>
-                            <p>Your application is currently under review by the committee.</p>
-                            <p>You continue to have view-only access to the eForm during this stage.</p>
-                            <p>Tip: You will receive the outcome within seven business days of the committee meeting date.</p>
+                            <p><strong> Your application is currently under review by the committee.</strong> </p>
+                            <br>
+                            <p>You continue to have <strong> view-only access</strong>  to the eForm during this stage.</p>
+                            <br>
+                            <p>You will receive the outcome within seven business days of the committee meeting date.</p>
                         </template>
 
                         <template if:true={showApprovedGuidance}>
-                            <p>Your application has been approved by the ethics committee.</p>
+                            <p><strong> Your application has been approved by the ethics committee.</strong> </p>
+                            <br> 
                             <p>
                                 You continue to have view-only access to the eForm and all previous committee comments for your
                                 reference.
                             </p>
+                            <br> 
                             <p>
                                 If you need to make changes to your approved application, please select “Create Modification” at the
                                 top right. This will allow access to an editable version of your application.
                             </p>
+                            <br> 
                             <p>
-                                Tip: To submit post approval reports, please choose from “Create Annual Report,” “Create Final Report,”
-                                or “Create UAE/Safety Report” at the top right of the screen to access the form.
+                            To submit post approval reports, please choose from <strong> “Create Annual Report,” “Create Final Report,”
+                                or “Create UAE/Safety Report” </strong> at the top right of the screen to access the form.
                             </p>
                             <p>You will receive the outcome within seven business days of the committee meeting date.</p>
                         </template>
@@ -177,7 +199,9 @@
                         </template>
 
                         <template if:true={showClosedGuidance}>
-                            <p>This project has been closed.</p>
+                            <p>This project has been <strong>closed.</strong> </p>
+                            <br>
+                            <p>You will continue to have view-only access to all submissions related to this application for your records.</p>
                         </template>
                     </div>
                 </article>
