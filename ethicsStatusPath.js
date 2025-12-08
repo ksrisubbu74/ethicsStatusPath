@@ -74,12 +74,15 @@ export default class EthicsRequestPath extends LightningElement {
             return;
         }
 
+        const normalizedStatus = (this.statusValue || '').trim().toLowerCase();
+
         const stages = [];
         let passedCurrent = false;
 
         STATUS_CONFIG.forEach(cfg => {
             const value = cfg.status;
-            const isCurrent = value === this.statusValue;
+            const normalizedValue = value.toLowerCase();
+            const isCurrent = normalizedValue === normalizedStatus;
             const isComplete = !isCurrent && !passedCurrent;
             const isFuture = !isCurrent && passedCurrent;
 
@@ -108,7 +111,9 @@ export default class EthicsRequestPath extends LightningElement {
 
         this.stages = stages;
 
-        const currentCfg = STATUS_CONFIG.find(cfg => cfg.status === this.statusValue);
+        const currentCfg = STATUS_CONFIG.find(
+            cfg => cfg.status.toLowerCase() === normalizedStatus
+        );
         this.currentGuidanceKey = currentCfg ? currentCfg.guidanceKey : null;
 
         // ✅ Everything ready
